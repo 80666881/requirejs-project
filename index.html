@@ -132,12 +132,16 @@
 			<div class="img-list">
 				<ul class="clearfix iconfont">
 					<li><img src="images/imgList-01.jpg" alt="">
+						<!-- <div class="cover"></div> -->
 					</li>
 					<li><img src="images/imgList-02.jpg" alt="">
+						<!-- <div class="cover"></div> -->
 					</li>
 					<li><img src="images/imgList-03.jpg" alt="">
+						<!-- <div class="cover"></div> -->
 					</li>
 					<li><img src="images/imgList-04.jpg" alt="">
+						<!-- <div class="cover"></div> -->
 					</li>
 				</ul>
 			</div>
@@ -257,19 +261,136 @@
 			</form>
         </div>
 
-    <script data-main="dist/js/index.merge.min.js" src="src/js/lib/require.js"></script>
-	<!-- <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script> -->
-<!--     <script>
-	requirejs.config({
-		baseUrl:'./src/js',
-		paths:{
-			'jquery':'lib/jquery-3.2.1.min'
-		}
+    <script src="src/js/lib/require.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+    <script>
+    	require.config({
+    		baseUrl:'src/js',
+    		paths:{
+    			'jquery':'lib/jquery-3.2.1.min'
+    		}
+    	});
+    	//加载模块入口
+    	require(['app/index']);
+
+
+//waterfall的原生写法
+/*	waterfall();
+	$(window).on('resize',function(){
+		waterfall();
 	});
-	//加载模块入口
-	requirejs(['app/index']);
+	function waterfall(){
+		var $imglist = $('.ct>.img-list');
+		var $items = $('.ct>.img-list img');
+		var itemWidth = $items.outerWidth(true);
+		var colLength = parseInt($imglist.width()/itemWidth);
+		var arr = [];
+		for (var i = 0; i < colLength; i++) {
+			arr[i] = 0;
+		}
+		$items.each(function(){
+			if(this.complete){
+				layout(this);
+			}else{
+				$(this).on('load',function(){
+					layout(this);
+				})
+			}
+		})
+		function layout(ele){
+			var minHeight= Math.min.apply(null,arr);
+			var minIndex= arr.indexOf(minHeight);
+			$(ele).css({
+				top: arr[minIndex],
+				left: $(ele).outerWidth(true) * minIndex
+			})
+			arr[minIndex] += $(ele).outerHeight(true);	
+			var maxHeight = Math.max.apply(null,arr);
+			$imglist.height(maxHeight);
+		}
+	}
+*/
+
+//waterfall的对象封装
+/*	function Waterfall($ct){
+		this.$ct = $ct//注意书写顺序，$ct的定义不能放在init后
+		this.init();
+		
+	}
+	Waterfall.prototype = {
+		init: function(){
+			var $imglist = this.$imglist = this.$ct.find('.img-list');
+			var $items = this.$ct.find('.img-list img');
+			var itemWidth = $items.outerWidth(true);
+			var colLength = parseInt($imglist.width()/itemWidth);
+			this.arr = [];
+			for (var i = 0; i < colLength; i++) {
+				this.arr[i] = 0;
+			}
+			var _this = this;
+			$items.each(function(){
+				if(this.complete){
+					_this.layout(this);
+				}else{
+					$(this).on('load',function(){
+						_this.layout(this);
+					})
+				}
+			})
+		},
+		layout: function(ele){
+			var minHeight= Math.min.apply(null,this.arr);
+			var minIndex= this.arr.indexOf(minHeight);
+			$(ele).css({
+				top: this.arr[minIndex],
+				left: $(ele).outerWidth(true) * minIndex
+			})
+			this.arr[minIndex] += $(ele).outerHeight(true);	
+			var maxHeight = Math.max.apply(null,this.arr);
+			this.$imglist.height(maxHeight);
+		}
+	}*/
+	/*new Waterfall($('.ct'));
 
 
-</script> -->
+	var addImg ='';
+	addImg += '	<li><img src="images/imgList-05.jpg" alt="">'
+	addImg += '	</li>'
+	addImg += '	<li><img src="images/imgList-06.jpg" alt="">'
+	addImg += '	</li>'
+	addImg += '	<li><img src="images/imgList-07.jpg" alt="">'
+	addImg += '	</li>'
+	addImg += '	<li><img src="images/imgList-08.jpg" alt="">'
+	addImg += '	</li>'
+	addImg += '	<li><img src="images/imgList-09.jpg" alt="">'
+	addImg += '	</li>'
+
+	$('.add-more').on('click',function(){
+		$('.ct>.img-list>ul').append(addImg);
+		new Waterfall($('.ct'));
+	})*/
+	
+
+	//----------------ajax-----------------------------
+/*	$('.add-more').on('click',function(e){
+		e.preventDefault();
+		$.ajax({
+			url: '/getImgs',
+			type: 'get',
+			success: function(ret){appendHtml(ret)},
+			error: function(){alert('与服务器连接失败')}
+		})
+	})
+
+	function appendHtml(ret){
+		var html = '';
+		$.each(ret,function(){
+			html += '<li><img src="'+this.src+'" alt="">'
+		})
+		$('.img-list>ul').append(html);
+		new Waterfall($('.ct'))
+	}*/
+
+    </script>
 </body>
 </html>

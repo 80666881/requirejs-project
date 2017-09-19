@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.ct img{
+			width: 200px;
+			position: absolute;
+			transition: all 1s;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="ct">
+		<div><img src="http://img.hb.aicdn.com/c54df45fba647c28238ede4ebc825d616ce4b8092cb8c-qAUHgv_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/7303810ccf5fa649db989686df95e9ef846aa7e551a92-z1cKrX_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/6c2475d288fca58ff08fc7f2f82dc9c672daddea4e9d8-DAOUW2_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/c1d1554c408f0d597594be7cffece8e06612f4cc1f229-BM4UKl_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/5f73909e54bd694712a4f1bf546ecc37bca074db5db84-rsAmm6_fw658" alt=""></div>
+		<div><img src="http://img2.ph.126.net/RkglLXE3wJUgNOofthFUPg==/6631452594769719407.jpg" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/46fdc28bb3442090fa090e3e46f9839ccf1cb83a2d32f-vr95n0_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/f6c625b54b8328ceddff1c55d5a00007c438c6f796f18-OEhi5v_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/b84fc8c7a532fb5b3a5298c8052b9e097c8433e860438-shRN54_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/a4d63dc50abb07377aee13b540bf95a0f1badb6630aa0-L3W94R_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/54a4df446927e9318a0ffd61b54dca67c331a12e241c1-uhvNhf_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/ac1f108db09c28b2a3ad6d03331abec5c21dc8aeca393-47vMPl_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/fe96c8841043f5b8155eec3b36c57657ba9641c914faa-tSgXZ9_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/a5a081d02d674e59c23a48bea9e2f065a4bfdf0c2c855-dZKIMk_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/2a4e698aaa7d1817d52dd172aeda54a6e7a319f9894e7-L7DdFX_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/901fff0b07b7c28f6076d788bca5a7871f5521ca6cda8-lUMBNj_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/725d96417c2148d03b35424454a244ea9bff80e47d425-nH8YMS_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/fde7f978c9bd5905ed5a2fb85050dc7ce9b4a82f4915e-mQaqFx_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/87dad464f1d7a12aca4a9d537455c5a48ba763941a4403-QRNICb_fw658" alt=""></div>
+		<div><img src="http://img.hb.aicdn.com/fdfe55280dc189464cc7b8955cd9882b20523c20a34d7-Gontek_fw658" alt=""></div>
+	</div>
+
+	<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+	<script type="text/javascript">
+
+	waterfall();
+	$(window).on('resize',function(){
+		waterfall();
+	});
+	function waterfall(){
+		var $items = $('.ct img');
+		var itemWidth = $items.outerWidth(true);
+		var colLength = parseInt($(window).width()/itemWidth);
+		var arr = [];
+		for (var i = 0; i < colLength; i++) {
+			arr[i] = 0;
+		}
+		var a = 0;
+
+		$items.each(function(){
+			if(this.complete){
+				layout(this);
+			}else{
+				$(this).on('load',function(){
+					layout(this);
+				})
+			}
+		})
+
+		function layout(ele){
+			var minHeight= Math.min.apply(null,arr);
+			var minIndex= arr.indexOf(minHeight);	
+			$(ele).css({
+				top: arr[minIndex],
+				left: $(ele).outerWidth(true) * minIndex
+			})
+			arr[minIndex] += $(ele).outerHeight(true);	
+		}
+	}
+	
+	
+
+	</script>
+</body>
+</html>
